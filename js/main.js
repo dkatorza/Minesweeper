@@ -7,7 +7,18 @@ const EMPTY = ' ';
 
 //Globals
 var gBoard;
-var gLevel = { SIZE: 4, MINES: 2 };
+var gLevelName = 'Easy';
+var gLevel = {
+    SIZE: 4,
+    MINES: 2
+};
+var gGame;
+var gMinesIdxs = [];
+var gTimerInterval;
+var gStartTime;
+var gIsCellClicked = false;
+var gLives = true;
+var gHint = false;
 
 var gGame = {
     isOn: false,
@@ -18,28 +29,32 @@ var gGame = {
 };
 
 
-var gMinesIdxs = [];
-var gTimerInterval;
-var gStartTime;
-var gIsCellClicked = false;
-
 //Disable mouse click menu 
 // This function is called "Arrow function" ? or "Fat arrow" ?
-//document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener('contextmenu', event => event.preventDefault());
 
-
+/*
 function init() {
     renderBoard(gBoard);
-}
+    
+}*/
 
 function initGame() {
-    gGame.isOn = true;
+    gGame.isOn = false;
     buildBoard();
     setMines();
     setMinesNegsCount(gBoard);
     renderBoard(gBoard);
-    //console.log('current mines cords', gMinesIdxs);
+     gGame = {
+        isOn: true,
+        shownCount: 0,
+        markedCount: 0,
+        secsPassed: 0,
+        healthCount: 3
+    }; 
+    
 }
+
 
 function buildCell() {
     return {
@@ -120,13 +135,8 @@ function cellClicked(elCell, i, j) {
             gIsCellClicked = true;
         }
         var currCell = gBoard[i][j];
-        if (currCell.isMarked) return;//Check this , DO NOT FORGET!
-        /*if (currCell.isMine) {
-            checkHealth()
-            renderCurrStatus()
-        } */
+        if (currCell.isMarked) return;
 
-        
         if (!currCell.isMine) {
             currCell.isShown = true;
             gGame.shownCount++;
@@ -135,8 +145,16 @@ function cellClicked(elCell, i, j) {
             renderCurrStatus();
         }
         else {
-            checkGameStatus();
-            return;
+            if (gLives) {
+                
+                checkGameStatus();
+                return
+
+            } else {
+                checkGameOver(true)
+                return
+            }
+            ;
         }
     }
 }
@@ -191,7 +209,7 @@ function expandShown(pos) {
 // checks if landed on a mine or won the game
 function checkGameOver(isOnMine) {
     if (isOnMine) {
-        document.querySelector('.score').innerText = 'LOST';
+        document.querySelector('.score').innerText = 'GAME LOST';
         document.querySelector('.smile').innerText = '🤯';
         gGame.isOn = false;
         clearInterval(gTimerInterval);
@@ -199,7 +217,7 @@ function checkGameOver(isOnMine) {
         return;
     }
 
-    if ((gGame.shownCount + gGame.markedCount) === (gLevel.SIZE*gLevel.SIZE)) {
+    if ((gGame.shownCount + gGame.markedCount) === (gLevel.SIZE * gLevel.SIZE)) {
         document.querySelector('.score').innerText = 'GAME WON';
         document.querySelector('.smile').innerText = '😎';
         gGame.isOn = false;
@@ -213,7 +231,7 @@ function checkGameOver(isOnMine) {
 // if true and no health  - game lost
 // also try to enter here some hint code so the player can know if there is mine there.
 function checkGameStatus() {
-    
+
     if (gGame.healthCount !== 0) {
         checkGameOver(false);
         gGame.healthCount--;
@@ -221,5 +239,6 @@ function checkGameStatus() {
     } else {
         checkGameOver(true)
     }
-        
+
 }
+

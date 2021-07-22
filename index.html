@@ -8,21 +8,37 @@
 </head>
 
 <body onload="initGame()">
-    <div class = title><span class="minesweeper">Minesweeper</span></div>
-    <div class="stats">
+    <div class=title><span class="minesweeper"><h1>Minesweeper<h1</span></div>
+    <div class="statsboard">
         <h1 class="timer">Click on cell to start</h1>
         <h2 class="score">Score: </h2>
         <h3 class="flags">Flags</h3>
         <h3 class="health">Helath</h3>
     </div>
-    <div class="smile"></div>
+
+        <button class="lvl" onclick="chooseLevel(this)">Easy</button>
+        <button class="lvl" onclick="chooseLevel(this)">Medium</button>
+        <button class="lvl" onclick="chooseLevel(this)">Hard</button>
+
+
+
+
+    <div class="hint">
+        <h2 calss="need-help"></h2>
+        <button class="get-hint" onclick="gHint = true">Need Hint?</button>
+    </div>
+
+    <div class="smile" onclick="newGame()">😀</div>
+
     <div class="board"></div>
 
+
     <script src="js/utils.js"></script>
+    <script src="js/levels.js"></script>
     <script src="js/main.js"></script>
 </body>
 <footer class="footer">
-    Brought to you by Dan Katorza 2021
+    Dan Katorza 2021
 </footer>
 
 </html>

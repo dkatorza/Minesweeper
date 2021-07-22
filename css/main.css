@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tomorrow:ital,wght@1,700&display=swap');
+
 * {
   box-sizing: border-box;
 }
@@ -7,27 +9,33 @@ body {
   margin: 0;
   background-color: rgb(14, 13, 13);
   text-align: center;
-  
+  background-image: url(/img/1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:cover;
  
   
 }
 
 .title {
   font-family: 'Righteous', cursive;
-  color: rgb(255, 254, 254);
+  color: goldenrod;
   width: 100%;
-  background: #FF0090;
-  background: -webkit-linear-gradient(to left, #FF0090 37%, #1FFFF0 100%);
-  background: -moz-linear-gradient(to left, #FF0090 37%, #1FFFF0 100%);
-  background: linear-gradient(to left, #FF0090 37%, #1FFFF0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-family: 'Tomorrow', sans-serif;
+  
+}
+
+.smile {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  
 }
 
 .footer {
   text-align: center;
   color: rgb(255, 255, 255);
-  font-family: 'Righteous', cursive;
+  font-family: 'Tomorrow', sans-serif;
 }
 
 div.stats h1, h2, h3 {
@@ -36,7 +44,7 @@ div.stats h1, h2, h3 {
 }
 
 .timer {
-  font-family: 'Righteous', cursive;
+  font-family: 'Tomorrow', sans-serif;
   animation: myAnim 2s ease 0s infinite normal forwards;
 }
 
@@ -66,16 +74,45 @@ div.stats h1, h2, h3 {
 
 .score {
   font-family: 'Righteous', cursive;
+  color:  goldenrod;
 }
 
 .flags {
   font-family: 'Righteous', cursive;
+  color:  goldenrod;
 }
 
+.health {
+  font-family: 'Righteous', cursive;
+  color:  goldenrod;
+}
 .board {
   display: inline-block;
   width: 100%;
   
+}
+.lvl {
+  color: black;
+  border-radius: 65px;
+  background-image: url(/img/1.jpg);
+  width: 150px;
+  height: 50px;
+  border-width: 5px;
+  border-bottom: goldenrod;
+  border-color: goldenrod;
+  
+}
+
+.get-hint {
+  color: black;
+  border-radius: 65px;
+  border-bottom: goldenrod;
+  border-color: goldenrod;
+
+  border-width: 5px;
+  background-image: url(/img/1.jpg);
+  width: 150px;
+  height: 50px;
 }
 
 .board table {
@@ -98,7 +135,9 @@ div.stats h1, h2, h3 {
 
 td {
   vertical-align: middle;
-  color: rgb(255, 255, 255);
+  color:  goldenrod;
+  ;
+
 
   border-radius: 1px;
   height: 150px;

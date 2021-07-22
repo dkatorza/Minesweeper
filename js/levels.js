@@ -1,40 +1,25 @@
 'use strict'
 
-function chooseLevel(size) {
-    var level;
-    switch (size) {
-        case 4: {
-            level = {
-                size: 4,
-                mines: 2,
-                name: "Easy"
-            }
+function chooseLevel(elBtn) {
+    gLevelName = elBtn.innerText;
+    switch (gLevelName) {
+        case 'Easy':
+            gLevel.SIZE = 4;
+            gLevel.MINES = 2;
+         
             break;
-        }
-        case 8: {
-            level = {
-                size: 8,
-                mines: 12,
-                name: "Hard"
-            }
+        case 'Medium':
+            gLevel.SIZE = 8;
+            gLevel.MINES = 12;
+          
             break;
-        }
-        case 12: {
-            level = {
-                size: 12,
-                mines: 30,
-                name: "Extrenel"
-            }
+        case 'Hard':
+            gLevel.SIZE = 12;
+            gLevel.MINES = 30;
+         
             break;
-        }
-        default: {
-            level = {
-                size: 4,
-                mines: 2,
-                name: "Easy"
-            }
-            break;
-        }
     }
-    return level;
-}
+    newGame();
+   
+}   
+

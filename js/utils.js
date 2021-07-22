@@ -1,9 +1,5 @@
-function getSelector(coord) {
-  return '#cell-' + coord.i + '-' + coord.j
-}
 
-
-// TIMER START
+// Start Timer
 function startTimer() {
   gStartTime = Date.now();
   gTimerInterval = setInterval(function () {
@@ -22,10 +18,6 @@ function startTimer() {
   }, 10);
 }
 
-// random number inclusive max
-function getRandomIntegerInclusive(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 // random number NOT inclusive max
 function getRandomInteger(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -34,7 +26,7 @@ function getRandomInteger(min, max) {
 
 // Render Board
 function renderBoard(board) {
-  debugger
+
   var strHTML = '<table border="1"><tbody><table border="1"><tbody>';
   for (var i = 0; i < board.length; i++) {
     strHTML += '<tr>';
@@ -102,3 +94,33 @@ function renderCurrStatus() {
   elHealth.innerHTML = `Health: ${gGame.healthCount}`;
 }
 
+function newData() {
+  gGame.healthCount = 3;
+  gLives = false;
+  gGame.shownCount = 0;
+  gGame.markedCount = 0;
+  gMinesIdxs = [];
+  clearInterval(gTimerInterval);
+  gGame.isOn = false;
+  gStartTime = 0;
+  restartStatsBoard ()
+
+}
+
+
+function restartStatsBoard () {
+
+  document.querySelector('.smile').innerHTML = '😀';
+  document.querySelector('.score').innerHTML = 'Score:';
+  document.querySelector('.flags').innerHTML = 'Flags:';
+  document.querySelector('.health').innerHTML = 'Health:';
+  document.querySelector('.timer').innerHTML = 'Click on cell to start';
+  
+  
+}
+
+function newGame(){
+  newData();
+  initGame();
+  
+}
