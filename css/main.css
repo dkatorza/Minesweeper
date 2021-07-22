@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(14, 13, 13);
+  text-align: center;
+  
+ 
+  
+}
+
+.title {
+  font-family: 'Righteous', cursive;
+  color: rgb(255, 254, 254);
+  width: 100%;
+  background: #FF0090;
+  background: -webkit-linear-gradient(to left, #FF0090 37%, #1FFFF0 100%);
+  background: -moz-linear-gradient(to left, #FF0090 37%, #1FFFF0 100%);
+  background: linear-gradient(to left, #FF0090 37%, #1FFFF0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer {
+  text-align: center;
+  color: rgb(255, 255, 255);
+  font-family: 'Righteous', cursive;
+}
+
+div.stats h1, h2, h3 {
+  margin-bottom: 0;
+  color: white;
+}
+
+.timer {
+  font-family: 'Righteous', cursive;
+  animation: myAnim 2s ease 0s infinite normal forwards;
+}
+
+@keyframes myAnim {
+  0% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+    transform-origin: center center;
+  }
+  10% {
+    animation-timing-function: ease-in;
+    transform: scale(0.91);
+  }
+  17% {
+    animation-timing-function: ease-out;
+    transform: scale(0.98);
+  }
+  33% {
+    animation-timing-function: ease-in;
+    transform: scale(0.87);
+  }
+  45% {
+    animation-timing-function: ease-out;
+    transform: scale(1);
+  }
+}
+
+.score {
+  font-family: 'Righteous', cursive;
+}
+
+.flags {
+  font-family: 'Righteous', cursive;
+}
+
+.board {
+  display: inline-block;
+  width: 100%;
+  
+}
+
+.board table {
+  background: rgb(14, 13, 13);
+  opacity:0.9;
+  border: 0px solid rgb(250, 4, 176);
+  border-top-color: rgb(255, 0, 149);
+  border-left-color: rgb(255, 0, 149);
+  border-right-color: hsl(160, 100%, 53%);
+  border-bottom-color: hsl(160, 100%, 53%);
+  margin: 100px auto;
+  text-align: center;
+  filter: drop-shadow(5px 1px 220px rgb(255, 0, 136));
+ 
+  background-position: center;
+  background-size: contain;
+  
+
+}
+
+td {
+  vertical-align: middle;
+  color: rgb(255, 255, 255);
+
+  border-radius: 1px;
+  height: 150px;
+  margin: 100px;
+  
+ 
+}
+
+
+
+@keyframes cell-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cell {
+  display: inline-block;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  width: 5em;
+  height: 5em;
+  margin: 0;
+  outline: none;
+  background-size: 500%;
+  cursor: pointer;
+  animation: cell-pulse 2s ease 0s 1 normal forwards;
+  
+}
+
+@keyframes cell-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
