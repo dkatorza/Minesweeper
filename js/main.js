@@ -209,7 +209,7 @@ function expandShown(pos) {
 // checks if landed on a mine or won the game
 function checkGameOver(isOnMine) {
     if (isOnMine) {
-        document.querySelector('.score').innerText = 'GAME LOST';
+        document.querySelector('.score').innerText = 'GAME OVER!';
         document.querySelector('.smile').innerText = '🤯';
         gGame.isOn = false;
         clearInterval(gTimerInterval);
@@ -218,7 +218,7 @@ function checkGameOver(isOnMine) {
     }
 
     if ((gGame.shownCount + gGame.markedCount) === (gLevel.SIZE * gLevel.SIZE)) {
-        document.querySelector('.score').innerText = 'GAME WON';
+        document.querySelector('.score').innerText = 'GAME WON!';
         document.querySelector('.smile').innerText = '😎';
         gGame.isOn = false;
         clearInterval(gTimerInterval);

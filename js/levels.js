@@ -20,6 +20,7 @@ function chooseLevel(elBtn) {
             break;
     }
     newGame();
+    initGame();
    
 }   
 
