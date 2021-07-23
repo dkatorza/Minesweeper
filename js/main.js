@@ -12,6 +12,7 @@ var gLevel = {
     SIZE: 4,
     MINES: 2
 };
+
 var gGame;
 var gMinesIdxs = [];
 var gTimerInterval;
@@ -21,7 +22,7 @@ var gLives = true;
 var gHint = false;
 
 var gGame = {
-    isOn: false,
+    isOn: true,
     shownCount: 0,
     markedCount: 0,
     secsPassed: 0,
@@ -33,14 +34,10 @@ var gGame = {
 // This function is called "Arrow function" ? or "Fat arrow" ?
 document.addEventListener('contextmenu', event => event.preventDefault());
 
-/*
-function init() {
-    renderBoard(gBoard);
-    
-}*/
+
 
 function initGame() {
-    gGame.isOn = false;
+    gIsCellClicked = false
     buildBoard();
     setMines();
     setMinesNegsCount(gBoard);
@@ -76,6 +73,7 @@ function buildBoard() {
     }
     return gBoard;
 }
+
 // we need to place mines in random cells
 // we need to place them according to level difficulty
 // we need to store their position
