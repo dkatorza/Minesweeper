@@ -43,7 +43,13 @@ function renderBoard(board) {
         currCell = FLAG;
       }
       else if (currCell.isShown) {
-        currCell = (currCell.isMine) ? MINE : currCell.minesAroundCount; // Check this also(for hints)
+        if (currCell.isMine)  {
+          currCell = MINE;
+        } else {
+          currCell = currCell.minesAroundCount;
+          } if (currCell === 0) {
+          currCell - EMPTY;
+        }
       }
       else { currCell = EMPTY; }
       strHTML += `<td class="${className}" oncontextmenu="cellMarked(this,${i},${j})" onclick="cellClicked(this,${i},${j})">${currCell}</td>`;
@@ -96,7 +102,7 @@ function renderCurrStatus() {
 
 function newData() {
   gGame.healthCount = 3;
-  gLives = false;
+  gLives = true;
   gGame.shownCount = 0;
   gGame.markedCount = 0;
   gMinesIdxs = [];
@@ -110,7 +116,7 @@ function newData() {
 
 function restartStatsBoard () {
 
-  document.querySelector('.smile').innerHTML = '😀';
+  document.querySelector('.smile').innerHTML = START;
   document.querySelector('.score').innerHTML = 'Score:';
   document.querySelector('.flags').innerHTML = 'Flags:';
   document.querySelector('.health').innerHTML = 'Health:';

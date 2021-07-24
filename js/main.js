@@ -4,6 +4,9 @@
 const MINE = '💣';
 const FLAG = '🚩';
 const EMPTY = ' ';
+const LOOSE = '<img src= "./img/loose.png"/>';
+const WIN = '<img src= "./img/win.png"/>'
+const START ='<img src= "./img/START.png"/>'
 
 //Globals
 var gBoard;
@@ -19,37 +22,42 @@ var gTimerInterval;
 var gStartTime;
 var gIsCellClicked = false;
 var gLives = true;
-var gHint = false;
+var gIsHint = false;
 
 var gGame = {
     isOn: true,
     shownCount: 0,
     markedCount: 0,
     secsPassed: 0,
-    healthCount: 3
+    healthCount: 3,
+    hints: 3
 };
 
 
 //Disable mouse click menu 
 // This function is called "Arrow function" ? or "Fat arrow" ?
+
+// its called arrow function, and we
+
 document.addEventListener('contextmenu', event => event.preventDefault());
 
 
 
 function initGame() {
-    gIsCellClicked = false
+    gIsCellClicked = false;
+    gIsHint = false;
     buildBoard();
-    setMines();
-    setMinesNegsCount(gBoard);
+
     renderBoard(gBoard);
-     gGame = {
+    gGame = {
         isOn: true,
         shownCount: 0,
         markedCount: 0,
         secsPassed: 0,
-        healthCount: 3
-    }; 
-    
+        healthCount: 3,
+        hints: 3
+    };
+
 }
 
 
@@ -68,7 +76,9 @@ function buildBoard() {
         gBoard[i] = [];
         for (var j = 0; j < gLevel.SIZE; j++) {
             gBoard[i][j] = buildCell();
-            var currCell = gBoard[i][j];
+            //var currCell = gBoard[i][j];
+
+            // you dont use the current cell here, remove it
         }
     }
     return gBoard;
@@ -81,15 +91,23 @@ function setMines() {
 
     var minesCounter = 0;
 
+// you shouldn't use while - 
+//you cant tell how many times it will run
+// and we like to make sure how many itterations it will have. 
+// instead, use a function that get empty cells and put mines in it by randomly picking cells. 
+// its better, safer and more predictable.
+
     while (minesCounter < gLevel.MINES) {
-        var iIdx = getRandomInteger(0, gBoard.length);
-        var jIdx = getRandomInteger(0, gBoard[0].length);
-        if (gBoard[iIdx][jIdx].isMine) {
+        var randI = getRandomInteger(0, gBoard.length);
+        var randJ = getRandomInteger(0, gBoard[0].length);
+        if (gBoard[randI][randJ].isMine) {
             continue;
         }
 
-        gBoard[iIdx][jIdx].isMine = true;
-        gMinesIdxs.push({ iIdx, jIdx });
+        // not iIdx, you should call it i
+
+        gBoard[randI][randJ].isMine = true;
+        gMinesIdxs.push({ randI, randJ });
         minesCounter++;
     }
 }
@@ -97,8 +115,10 @@ function setMines() {
 
 function countNegs(pos) {
     var negs = [];
+
     for (var i = pos.i - 1; i <= pos.i + 1 && i < gLevel.SIZE; i++) {
         if (i < 0) continue;
+
         for (var j = pos.j - 1; j <= pos.j + 1 && j < gLevel.SIZE; j++) {
             if (j < 0 || (i === pos.i && j === pos.j)) continue;
             if (gBoard[i][j].isMine) {
@@ -127,10 +147,16 @@ function setMinesNegsCount(board) {
 // Called when a cell (td) is clicked.
 // Each click checks if game won or lost.
 function cellClicked(elCell, i, j) {
+
+    // better to check if game isn't on, if so - return;
+
     if (gGame.isOn) {
         if (!gIsCellClicked) {
             startTimer();
             gIsCellClicked = true;
+            setMines();
+            setMinesNegsCount(gBoard);
+
         }
         var currCell = gBoard[i][j];
         if (currCell.isMarked) return;
@@ -141,25 +167,29 @@ function cellClicked(elCell, i, j) {
 
             expandShown({ i, j });
             renderCurrStatus();
-        }
-        else {
-            if (gLives) {
-                
-                checkGameStatus();
-                return
 
-            } else {
-                checkGameOver(true)
-                return
-            }
-            ;
-        }
+        } else if (gLives) {
+            checkHealthStatus();
+            renderCell({ i, j }, MINE);
+            setTimeout(() => {
+                renderCell({ i, j }, EMPTY);
+
+            }, 1000);
+            return
+        } else {
+            checkGameOver(true)
+            return
+        };
     }
 }
 
 
 
+
 function cellMarked(elCell, i, j) {
+
+    // same here for the if
+
     if (gGame.isOn) {
         if (!gIsCellClicked) {
             startTimer();
@@ -208,16 +238,16 @@ function expandShown(pos) {
 function checkGameOver(isOnMine) {
     if (isOnMine) {
         document.querySelector('.score').innerText = 'GAME OVER!';
-        document.querySelector('.smile').innerText = '🤯';
+        document.querySelector('.smile').innerHTML = LOOSE;
         gGame.isOn = false;
-        clearInterval(gTimerInterval);
+        clearInterval(gTimerInterval);  
         renderGameOver();
         return;
     }
-
+    
     if ((gGame.shownCount + gGame.markedCount) === (gLevel.SIZE * gLevel.SIZE)) {
         document.querySelector('.score').innerText = 'GAME WON!';
-        document.querySelector('.smile').innerText = '😎';
+        document.querySelector('.smile').innerHTML = WIN;
         gGame.isOn = false;
         clearInterval(gTimerInterval);
         renderGameOver();
@@ -228,15 +258,28 @@ function checkGameOver(isOnMine) {
 // cheking to see if landed on mine 
 // if true and no health  - game lost
 // also try to enter here some hint code so the player can know if there is mine there.
-function checkGameStatus() {
+function checkHealthStatus() {
 
     if (gGame.healthCount !== 0) {
         checkGameOver(false);
         gGame.healthCount--;
         renderCurrStatus()
+
     } else {
         checkGameOver(true)
     }
 
 }
 
+function checkHintsStatus() {
+
+    if (gGame.hints !== 0) {
+        checkGameOver(false);
+        gGame.hints--;
+        renderCurrStatus()
+
+    } else {
+        checkGameOver(true)
+    }
+
+}
