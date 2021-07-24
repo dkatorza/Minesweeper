@@ -157,10 +157,12 @@ td.cell:hover {
   font-family: 'Press Start 2P', cursive;
   text-align: center;
   font-size: 20px;
-  color:  rgb(238, 255, 0);
+  color:  rgb(255, 0, 0);
   text-shadow: 5px 3px 2px black;
-  background-image: 25px;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15px;
 }
 .board {
 display: grid;
