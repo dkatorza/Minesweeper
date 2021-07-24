@@ -7,6 +7,9 @@ const EMPTY = ' ';
 const LOOSE = '<img src= "./img/loose.png"/>';
 const WIN = '<img src= "./img/win.png"/>'
 const START ='<img src= "./img/start.png"/>'
+const HEART = '<img src= "./img/heart.png"/>'
+const BHEART = '<img src= "./img/brokenheart.png"/>'
+
 
 //Globals
 var gBoard;
@@ -239,6 +242,8 @@ function checkGameOver(isOnMine) {
     if (isOnMine) {
         document.querySelector('.score').innerText = 'GAME OVER!';
         document.querySelector('.smile').innerHTML = LOOSE;
+        document.querySelector('.health').innerHTML = BHEART;
+
         gGame.isOn = false;
         clearInterval(gTimerInterval);  
         renderGameOver();

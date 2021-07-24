@@ -43,11 +43,11 @@ function renderBoard(board) {
         currCell = FLAG;
       }
       else if (currCell.isShown) {
-        if (currCell.isMine)  {
+        if (currCell.isMine) {
           currCell = MINE;
         } else {
           currCell = currCell.minesAroundCount;
-          } if (currCell === 0) {
+        } if (currCell === 0) {
           currCell - EMPTY;
         }
       }
@@ -70,7 +70,7 @@ function renderCell(location, value) {
 
 // renders entire board(isShown to all)
 function renderGameOver() {
-  for (var i = 0; i < gLevel.SIZE; i++) { 
+  for (var i = 0; i < gLevel.SIZE; i++) {
     for (var j = 0; j < gLevel.SIZE; j++) {
       var currCell = gBoard[i][j];
       if (currCell.isMine) {
@@ -91,13 +91,14 @@ function renderGameOver() {
 
 // renders status of current game
 function renderCurrStatus() {
+  showLifeWithHeart()
 
   var elScore = document.querySelector('.score');
   var elFlags = document.querySelector('.flags');
   var elHealth = document.querySelector('.health');
   elScore.innerHTML = `Score: ${gGame.shownCount}`;
   elFlags.innerHTML = `Flags remaining: ${gLevel.MINES - gGame.markedCount}`;
-  elHealth.innerHTML = `Health: ${gGame.healthCount}`;
+  elHealth.innerHTML = `Health: ${gHeart}`;
 }
 
 function newData() {
@@ -109,24 +110,41 @@ function newData() {
   clearInterval(gTimerInterval);
   gGame.isOn = false;
   gStartTime = 0;
-  restartStatsBoard ()
+  restartStatsBoard()
 
 }
 
 
-function restartStatsBoard () {
+function restartStatsBoard() {
 
   document.querySelector('.smile').innerHTML = START;
   document.querySelector('.score').innerHTML = 'Score:';
   document.querySelector('.flags').innerHTML = 'Flags:';
   document.querySelector('.health').innerHTML = 'Health:';
   document.querySelector('.timer').innerHTML = 'Click on cell to start';
-  
-  
+
+
 }
 
-function newGame(){
+function newGame() {
   newData();
   initGame();
-  
+
+}
+
+function showLifeWithHeart() {
+  switch (gGame.healthCount) {
+    case 3:
+      gHeart = HEART + HEART + HEART;
+      break;
+    case 2:
+      gHeart =  HEART + HEART;
+      break;
+    case 1:
+      gHeart = HEART;
+      break;
+    case 0:
+      gHeart = 'NO LIFE!';
+      break;
+  }
 }
