@@ -6,7 +6,7 @@ const FLAG = '🚩';
 const EMPTY = ' ';
 const LOOSE = '<img src= "./img/loose.png"/>';
 const WIN = '<img src= "./img/win.png"/>'
-const START ='<img src= "./img/START.png"/>'
+const START ='<img src= "./img/start.png"/>'
 
 //Globals
 var gBoard;
